@@ -1,10 +1,8 @@
-import register from './register';
-import login from './login';
+import user from './user';
 import upload from './uploader';
 
 const router = {
-  register,
-  login,
+  user,
   upload
 }
 

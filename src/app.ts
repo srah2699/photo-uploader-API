@@ -10,17 +10,15 @@ dotenv.config();
 export const app: Application = express();
 app.use(bodyParser.json());
 
-// check mongo uri error 
 function main() {
   cloudinary.config({
-    cloud_name: 'dodlsfgg2',
-    api_key: '626991556691434',
-    api_secret: 'bLVGARZNjgl1_8FN2jSIbMVtZe0'
+    cloud_name: process.env.CLOUD,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET_KEY,
   });
 
   const dbConnection = async () => {
-    const connect = await mongoose.connect('mongodb+srv://srah_o1:SrAh2603@cluster0.6psio.mongodb.net/himavasanthdb1?retryWrites=true&w=majority');
-    console.log('db connected');
+    const connect = await mongoose.connect(process.env.MONGO_URI as string);
   };
   
   dbConnection();
@@ -29,7 +27,7 @@ function main() {
 		res.status(200).send('working');
 	});
 
-  app.use('/', [router.register, router.login, router.upload]);
+  app.use('/', [router.user, router.upload]);
 }
 
 main();
